@@ -23,12 +23,9 @@ async function main() {
     return mc_timeline_filterable;
   });
 
-
-
-  const inputData = (index: number, amountOfData : number) => {
-    for (let b = 0; b < amountOfData; b++) { 
-      date = new Date(data[1][0][index][b][0] * 1000);
-      dateTime = date.toLocaleDateString();
+  const inputData = (index: number, amountOfData: number) => {
+    for (let b = 0; b < amountOfData; b++) {
+      dateTime = new Date(data[1][0][index][b][0] * 1000).toLocaleDateString();
       presidentNameInput = data["1"][0][index][b][1];
       approvalRateInput = data["1"][0][index][b][2];
       disapprovalInput = data["1"][0][index][b][3];
@@ -39,40 +36,31 @@ async function main() {
         approvalRateInput,
         disapprovalInput,
       ]);
-     
     }
   };
 
-
-  for(let t = 0; t < data["1"][0].length; t++){
-    inputData(t,data["1"][0][t].length);
+  for (let t = 0; t < data["1"][0].length; t++) {
+    inputData(t, data["1"][0][t].length);
     googleSheetsInput.push([]);
-    // date = new Date(data[1][0][0][0][0]);
   }
 
-  
   const auth = new google.auth.GoogleAuth({
-    scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly","https://www.googleapis.com/auth/spreadsheets"],
+    scopes: [
+      "https://www.googleapis.com/auth/spreadsheets.readonly",
+      "https://www.googleapis.com/auth/spreadsheets",
+    ],
   });
   const sheets = google.sheets({ version: "v4", auth });
 
   const googleSheetsOptions = {
     auth,
-    spreadsheetId : process.env["SHEET_ID"],
+    spreadsheetId: process.env["SHEET_ID"],
     range: "Sheet1!A:D",
-    valueInputOption : "USER_ENTERED",
-    resource: {values: googleSheetsInput}
-  }
-
-  // const response = await sheets.spreadsheets.values.get({
-  //   spreadsheetId: process.env["SHEET_ID"],
-  //   range: "Sheet1!A1:D1",
-  // });
-
-  
+    valueInputOption: "USER_ENTERED",
+    resource: { values: googleSheetsInput },
+  };
 
   let store = await sheets.spreadsheets.values.append(googleSheetsOptions);
- 
 
   console.log(store);
   browser.close();
