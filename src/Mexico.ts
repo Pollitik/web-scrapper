@@ -43,7 +43,7 @@ async function scrapper() {
   const googleSheetsOptions = {
     auth,
     spreadsheetId: process.env["SHEET_ID"],
-    range:"Sheet1!A:D",
+    range:"Sheet1!A6949:D7105",
     valueInputOption: "USER_ENTERED",
     resource: {values : returnData}
   };
