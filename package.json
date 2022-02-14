@@ -3,7 +3,7 @@
   "packageManager": "yarn@3.1.0",
   "module": "module",
   "scripts": {
-    "dev:start": "ts-node src/Mexico.ts"
+    "dev:start": "ts-node src/Australia.ts"
   },
   "dependencies": {
     "axios": "^0.25.0",

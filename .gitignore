@@ -2,3 +2,4 @@
 /.yarn
 secrets.json
 .env
+data.xlsx
